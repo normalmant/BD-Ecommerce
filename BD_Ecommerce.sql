@@ -10,9 +10,10 @@ CREATE TABLE Produto
 
 CREATE TABLE Compra 
 ( 
- ID INT PRIMARY KEY,  
- idCliente INT NOT NULL,  
- data DATETIME NOT NULL,  
+ ID INT PRIMARY KEY AUTO_INCREMENT,  
+ idCliente INT NOT NULL,
+ ID_endereco INT NOT NULL,
+ data TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,  
  forma_pag VARCHAR (50)NOT NULL,  
  Total DECIMAL (10,2) NOT NULL
 ); 
@@ -27,7 +28,7 @@ CREATE TABLE Cliente
 
 CREATE TABLE Endereco 
 ( 
- ID INT PRIMARY KEY,  
+ ID INT PRIMARY KEY AUTO_INCREMENT,  
  idCliente INT NOT NULL,  
  Rua VARCHAR(150) NOT NULL,  
  CEP CHAR (9)NOT NULL,  
@@ -48,19 +49,12 @@ CREATE TABLE Produto_compra
  ID_produtoCompra INT PRIMARY KEY AUTO_INCREMENT
 ); 
 
-CREATE TABLE Compra_endereco 
-( 
- ID_compra INT,  
- ID_endereco INT,  
- ID_compraEndereco INT PRIMARY KEY AUTO_INCREMENT
-); 
 
 ALTER TABLE Compra ADD FOREIGN KEY(idCliente) REFERENCES Cliente (ID);
 ALTER TABLE Endereco ADD FOREIGN KEY(idCliente) REFERENCES Cliente (ID);
 ALTER TABLE Produto_compra ADD FOREIGN KEY(ID_compra) REFERENCES Produto (ID);
 ALTER TABLE Produto_compra ADD FOREIGN KEY(ID_produto) REFERENCES Compra (ID);
-ALTER TABLE Compra_endereco ADD FOREIGN KEY(ID_compra) REFERENCES Endereco (ID);
-ALTER TABLE Compra_endereco ADD FOREIGN KEY(ID_endereco) REFERENCES Compra (ID);
+ALTER TABLE Compra ADD FOREIGN KEY(ID_endereco) REFERENCES Compra (ID);
 
 
 
